@@ -133,9 +133,28 @@
             transform: scale(1.1);
         }
 
-        /* Show toggle button on desktop when sidebar is hidden */
-        .sidebar.hidden ~ .main-content .sidebar-toggle {
+        /* Show toggle button only when sidebar is hidden */
+        .sidebar.hidden + .main-content .sidebar-toggle {
             display: flex;
+        }
+
+        /* Overlay for mobile sidebar */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         .sidebar-toggle:hover {
@@ -885,6 +904,11 @@
                 display: flex !important;
             }
 
+            /* Hide toggle when sidebar is active on mobile */
+            .sidebar.active + .main-content .sidebar-toggle {
+                display: none !important;
+            }
+
             .certs-grid {
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             }
@@ -995,6 +1019,9 @@
         <div class="particle"></div>
         <div class="particle"></div>
     </div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
     <!-- Sidebar Toggle -->
     <div class="sidebar-toggle" onclick="toggleSidebar()">
@@ -1287,12 +1314,32 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('mainContent');
-            
-            sidebar.classList.toggle('active');
+            const overlay = document.getElementById('sidebarOverlay');
             
             if (window.innerWidth > 1024) {
+                // Desktop behavior
                 sidebar.classList.toggle('hidden');
                 mainContent.classList.toggle('expanded');
+            } else {
+                // Mobile behavior
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            }
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            if (window.innerWidth > 1024) {
+                // Desktop behavior
+                sidebar.classList.add('hidden');
+                mainContent.classList.add('expanded');
+            } else {
+                // Mobile behavior
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
             }
         }
 
@@ -1312,6 +1359,7 @@
                     // Close sidebar on mobile after navigation
                     if (window.innerWidth <= 1024) {
                         document.getElementById('sidebar').classList.remove('active');
+                        document.getElementById('sidebarOverlay').classList.remove('active');
                     }
                 }
             });
@@ -1366,9 +1414,11 @@
         window.addEventListener('resize', () => {
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('mainContent');
+            const overlay = document.getElementById('sidebarOverlay');
             
             if (window.innerWidth > 1024) {
                 sidebar.classList.remove('active');
+                overlay.classList.remove('active');
                 if (!sidebar.classList.contains('hidden')) {
                     mainContent.classList.remove('expanded');
                 }
