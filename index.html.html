@@ -127,10 +127,15 @@
             backdrop-filter: blur(10px);
         }
 
-        @media (max-width: 1024px) {
-            .sidebar-toggle {
-                display: flex;
-            }
+        .sidebar-toggle:hover {
+            background: #64ffda;
+            color: #0a0a0a;
+            transform: scale(1.1);
+        }
+
+        /* Show toggle button on desktop when sidebar is hidden */
+        .sidebar.hidden ~ .main-content .sidebar-toggle {
+            display: flex;
         }
 
         .sidebar-toggle:hover {
@@ -863,7 +868,7 @@
         /* Mobile Responsive */
         @media (max-width: 1024px) {
             .sidebar {
-                transform: translateX(-100%);
+                transform: translateX(-280px);
                 z-index: 1002;
             }
 
@@ -873,11 +878,11 @@
 
             .main-content {
                 margin-left: 0;
+                width: 100%;
             }
 
             .sidebar-toggle {
-                display: flex;
-                z-index: 1003;
+                display: flex !important;
             }
 
             .certs-grid {
@@ -1019,7 +1024,7 @@
         <section id="hero" class="section hero">
             <div class="section-content">
                 <h1>John Rey Ang</h1>
-                <p class="subtitle">Computer Engineering</p>
+                <p class="subtitle">Computer Engineering Professional</p>
                 <div class="contact-grid">
                     <div class="contact-card">
                         <i class="fas fa-envelope"></i>
