@@ -977,8 +977,13 @@
             }
 
             .sidebar {
-                width: 100%;
+                width: 85%;
                 max-width: 280px;
+            }
+
+            /* Ensure toggle is hidden when sidebar is active on mobile */
+            .sidebar.active ~ .main-content .sidebar-toggle {
+                display: none !important;
             }
         }
 
