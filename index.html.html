@@ -134,8 +134,8 @@
         }
 
         .nav-bubble.expanded {
-            width: 200px;
-            height: 200px;
+            width: 260px;
+            height: 160px;
             border-radius: 20px;
         }
 
@@ -154,34 +154,93 @@
             width: 100%;
             height: 100%;
             padding: 20px;
+            position: relative;
         }
 
         .nav-bubble.expanded .nav-bubble-menu {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
+            display: block;
         }
 
         .bubble-nav-item {
+            position: absolute;
             width: 40px;
             height: 40px;
             background: rgba(100, 255, 218, 0.1);
-            border: 1px solid rgba(100, 255, 218, 0.3);
+            border: 2px solid rgba(100, 255, 218, 0.3);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #64ffda;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             font-size: 16px;
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .nav-bubble.expanded .bubble-nav-item {
+            opacity: 1;
+            transform: scale(1);
         }
 
         .bubble-nav-item:hover {
             background: #64ffda;
             color: #0a0a0a;
-            transform: scale(1.1);
+            transform: scale(1.2);
+            box-shadow: 0 8px 20px rgba(100, 255, 218, 0.4);
+            z-index: 10;
+        }
+
+        /* Top row - 3 icons (1st, 2nd, 3rd child) */
+        .bubble-nav-item:nth-child(1) { /* Summary */
+            top: 20px;
+            left: 35px;
+            transition-delay: 0.1s;
+        }
+
+        .bubble-nav-item:nth-child(2) { /* Home */
+            top: 20px;
+            left: 50%;
+            margin-left: -20px;
+            transition-delay: 0.15s;
+        }
+
+        .bubble-nav-item:nth-child(3) { /* Skills */
+            top: 20px;
+            right: 35px;
+            transition-delay: 0.2s;
+        }
+
+        /* Bottom row - 4 icons (4th, 5th, 6th, 7th child) */
+        .bubble-nav-item:nth-child(4) { /* Experience */
+            bottom: 20px;
+            left: 20px;
+            transition-delay: 0.25s;
+        }
+
+        .bubble-nav-item:nth-child(5) { /* Education */
+            bottom: 20px;
+            left: 80px;
+            transition-delay: 0.3s;
+        }
+
+        .bubble-nav-item:nth-child(6) { /* Projects */
+            bottom: 20px;
+            right: 80px;
+            transition-delay: 0.35s;
+        }
+
+        .bubble-nav-item:nth-child(7) { /* Certifications */
+            bottom: 20px;
+            right: 20px;
+            transition-delay: 0.4s;
+        }
+
+        /* Enhanced hover effects */
+        .bubble-nav-item:hover {
+            transform: scale(1.2);
+            box-shadow: 0 8px 20px rgba(100, 255, 218, 0.4);
         }
 
         @media (min-width: 1025px) {
@@ -1054,9 +1113,12 @@
     <div class="nav-bubble" id="navBubble">
         <i class="fas fa-compass nav-bubble-icon"></i>
         <div class="nav-bubble-menu">
-            <a href="#hero" class="bubble-nav-item" title="Home"><i class="fas fa-home"></i></a>
+            <!-- Top Row - 3 icons -->
             <a href="#summary" class="bubble-nav-item" title="Summary"><i class="fas fa-user"></i></a>
+            <a href="#hero" class="bubble-nav-item" title="Home"><i class="fas fa-home"></i></a>
             <a href="#skills" class="bubble-nav-item" title="Skills"><i class="fas fa-code"></i></a>
+            
+            <!-- Bottom Row - 4 icons -->
             <a href="#experience" class="bubble-nav-item" title="Experience"><i class="fas fa-briefcase"></i></a>
             <a href="#education" class="bubble-nav-item" title="Education"><i class="fas fa-graduation-cap"></i></a>
             <a href="#projects" class="bubble-nav-item" title="Projects"><i class="fas fa-project-diagram"></i></a>
